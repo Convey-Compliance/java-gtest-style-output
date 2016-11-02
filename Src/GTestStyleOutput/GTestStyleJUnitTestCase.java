@@ -19,6 +19,13 @@ public class GTestStyleJUnitTestCase {
     public final static LinkedList<Description> FailedTests = new LinkedList<>();
     public final static LinkedList<Description> SkippedTests = new LinkedList<>();
 
+    private static String getTestName(Description description) {
+        String methodName = description.getMethodName();
+        String className = description.getClassName();
+        className = className.substring(className.lastIndexOf('.') + 1);
+        return className + "." + methodName;
+    }
+
     @Rule
     public TestWatcher testWatcher = new TestWatcher() {
         @Rule
@@ -27,21 +34,21 @@ public class GTestStyleJUnitTestCase {
         @Override
         protected void starting(Description description) {
             _startTime = System.currentTimeMillis();
-            System.err.println("[ RUN      ] " + description.getMethodName());
+            System.err.println("[ RUN      ] " + getTestName(description));
             ClassTestCount++;
             TotalTestCount++;
         }
 
         @Override
         protected void succeeded(Description description) {
-            System.err.println("[       OK ] " + description.getMethodName() + " (" + (System.currentTimeMillis() - _startTime) + " ms)");
+            System.err.println("[       OK ] " + getTestName(description) + " (" + (System.currentTimeMillis() - _startTime) + " ms)");
             PassedCount++;
         }
 
         @Override
         protected void failed(Throwable e, Description description) {
             System.err.println(e.getMessage());
-            System.err.println("[  FAILED  ] " + description.getMethodName() + " (" + (System.currentTimeMillis() - _startTime) + " ms)");
+            System.err.println("[  FAILED  ] " + getTestName(description) + " (" + (System.currentTimeMillis() - _startTime) + " ms)");
             FailedCount++;
             FailedTests.add(description);
         }
@@ -49,7 +56,7 @@ public class GTestStyleJUnitTestCase {
         @Override
         protected void skipped(org.junit.AssumptionViolatedException e, Description description) {
             System.err.println(e.getMessage());
-            System.err.println("[  SKIPPED ] " + description.getMethodName());
+            System.err.println("[  SKIPPED ] " + getTestName(description));
             SkippedCount++;
             SkippedTests.add(description);
         }
