@@ -23,7 +23,7 @@ public class GTestStyleJUnitSuite extends Suite{
     }
 
     private static void PrintSuitePreface(Runner runner){
-        System.err.println("[----------] Running " + runner.testCount() + " tests from suite " + runner.getDescription().getClassName());
+        System.err.println("[----------] Running " + runner.testCount() + " tests from TestCase " + runner.getDescription().getClassName());
         GTestStyleJUnitTestCase.ClassTestCount = 0;
         GTestStyleJUnitTestCase.ClassStartTime = System.currentTimeMillis();
     }
