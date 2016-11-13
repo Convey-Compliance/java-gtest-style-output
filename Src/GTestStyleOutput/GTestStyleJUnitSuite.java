@@ -8,7 +8,7 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
 public class GTestStyleJUnitSuite extends Suite{
-    public static long SuiteStartTime = System.currentTimeMillis();
+    public static final long SuiteStartTime = System.currentTimeMillis();
 
     public GTestStyleJUnitSuite(Class<?> klass, RunnerBuilder builder) throws InitializationError {
         super(klass, builder);
